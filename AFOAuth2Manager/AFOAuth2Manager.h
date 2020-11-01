@@ -23,7 +23,7 @@
 #import <Foundation/Foundation.h>
 
 #import <AFNetworking/AFHTTPRequestOperationManager.h>
-// test
+
 @class AFOAuthStoredCredential;
 
 /**
@@ -120,6 +120,25 @@
 - (id)syncAuthenticateUsingOAuthWithURLString:(NSString *)URLString
                                      username:(NSString *)username
                                      password:(NSString *)password
+                                        scope:(NSString *)scope
+                                    operation:(AFHTTPRequestOperation **)operationPtr
+                                        error:(NSError **)outError;
+
+/**
+ Synchronously creates and enqueues an `AFHTTPRequestOperation` to authenticate against the server with the specified parameters.
+ 
+ @param URLString The URL string used to create the request URL.
+ @param username The username used for authentication
+ @param authReqId The SSO auth request id used for authentication
+ @param scope The authorization scope
+ @param outError pointer to the error in the request
+ 
+ @return the response object
+ */
+
+- (id)syncAuthenticateUsingOAuthWithURLString:(NSString *)URLString
+                                     username:(NSString *)username
+                                    authReqId:(NSString *)authReqId
                                         scope:(NSString *)scope
                                     operation:(AFHTTPRequestOperation **)operationPtr
                                         error:(NSError **)outError;
@@ -379,6 +398,7 @@ extern NSString * const AFOAuthCodeGrantType;
 extern NSString * const AFOAuthClientCredentialsGrantType;
 extern NSString * const AFOAuthPasswordCredentialsGrantType;
 extern NSString * const AFOAuthRefreshGrantType;
+extern NSString * const AFOAuthSSOCredentialsGrantType;
 
 @compatibility_alias AFOAuth2Client AFOAuth2Manager;
 @compatibility_alias AFOAuth2RequestOperationManager AFOAuth2Manager;
